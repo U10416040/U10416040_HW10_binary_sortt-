@@ -15,6 +15,7 @@ public class BTree {
 		
 		bs.CreateNumberList();		
 				
+		//print all the input numbers
 		for(i=0;i<20;i++){		
 			System.out.println(bs.numbers[i]);
 		}
@@ -24,19 +25,22 @@ public class BTree {
 					
 		bs.BuildBSTree();
 		
+		//show the tree
 		for(i=0;i<1024*1024;i++){
 			if(bs.BSTree[i]!=0){
 				System.out.printf("%d ", bs.BSTree[i]);
 			}
 		}
 		
-		
+		//infix
 		System.out.printf("\nThis is infix:");
 		sort.infix(bs.BSTree, 0);
 		
+		//prefix
 		System.out.printf("\nThis is prefix:");
 		sort.prefix(bs.BSTree, 0);
 		
+		//postfix
 		System.out.printf("\nThis is postfix:");
 		sort.postfix(bs.BSTree, 0);
 				
@@ -61,7 +65,8 @@ class Tree{
 	
 	int CreateNumberList(){
 		int temp;
-				
+			
+		//create 20 numbers and see if it is repeat
 		count=0;
 		do{
 			temp=srandom.nextInt(100)+1;			
@@ -90,6 +95,7 @@ class Tree{
 	int BuildBSTree(){
 		int i;				
 						
+		//input 20 numbers to the tree
 		for(i=0;i<20;i++){
 			AddNode(0, numbers[i]);
 		}				
@@ -100,6 +106,7 @@ class Tree{
 	int AddNode(int pidx, int val){
 		int p;
 		
+		//the root
 		if(pidx==0){
 			if(BSTree[0]==0){
 				BSTree[0]=val;
@@ -109,6 +116,7 @@ class Tree{
 		
 		p=BSTree[pidx];
 		
+		//if smaller put left side
 		if(val>p){			
 			if(BSTree[pidx*2+1+1]!=0){
 				AddNode(pidx*2+1+1, val);
@@ -117,6 +125,7 @@ class Tree{
 				BSTree[pidx*2+1+1]=val;				
 			}					
 		}
+		//bigger put right side
 		else{
 			if(BSTree[pidx*2+1]!=0){
 				AddNode(pidx*2+1, val);
@@ -134,6 +143,7 @@ class Tree{
 class Sort{			
 	int i=0;	
 	
+	//for infix
 	int infix(int tree[], int start){
 		if(tree[start]!=0){
 			infix(tree, start*2+1);
@@ -144,6 +154,7 @@ class Sort{
 		return 0;
 	}
 	
+	//for prifix
 	int prefix(int tree[], int start){
 		if(tree[start]!=0){
 			System.out.printf("%d ", tree[start]);
@@ -154,6 +165,7 @@ class Sort{
 		return 0;					
 	}
 	
+	//for postfix
 	int postfix(int tree[], int start){
 		if(tree[start]!=0){
 			postfix(tree, start*2+1);			
