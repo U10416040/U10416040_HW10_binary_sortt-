@@ -7,28 +7,47 @@ import java.security.SecureRandom;
 public class BTree {
 	public static void main(String[] args){
 		//System.out.printf("ss");
-		int i;
+		int i;		
 		double test;
 		double p;
 		Tree bs=new Tree();
+		Sort sort=new Sort();
 		
 		bs.CreateNumberList();		
-		
+				
 		for(i=0;i<20;i++){		
 			System.out.println(bs.numbers[i]);
 		}
 		
-		System.out.println();
-		System.out.println("bstree value");
+				
+		System.out.printf("\nBinary Search Tree value:");
 					
 		bs.BuildBSTree();
+		
+		for(i=0;i<1024*1024;i++){
+			if(bs.BSTree[i]!=0){
+				System.out.printf("%d ", bs.BSTree[i]);
+			}
+		}
+		
+		
+		System.out.printf("\nThis is infix:");
+		sort.infix(bs.BSTree, 0);
+		
+		System.out.printf("\nThis is prefix:");
+		sort.prefix(bs.BSTree, 0);
+		
+		System.out.printf("\nThis is postfix:");
+		sort.postfix(bs.BSTree, 0);
 				
+		/*
 		p=Math.pow(2,10);
 		for(i=0;i<p;i++){
 			System.out.printf("%5d=%5d", i,bs.BSTree[i]);
 			if(i%10==0)
 				System.out.println();
 		}
+		*/
 	}
 
 	
@@ -71,7 +90,7 @@ class Tree{
 	int BuildBSTree(){
 		int i;				
 						
-		for(i=0;i<10;i++){
+		for(i=0;i<20;i++){
 			AddNode(0, numbers[i]);
 		}				
 		
@@ -110,4 +129,38 @@ class Tree{
 		return 0;
 	}
 	
+}
+
+class Sort{			
+	int i=0;	
+	
+	int infix(int tree[], int start){
+		if(tree[start]!=0){
+			infix(tree, start*2+1);
+			System.out.printf("%d ", tree[start]);
+			infix(tree, start*2+1+1);
+		}
+		
+		return 0;
+	}
+	
+	int prefix(int tree[], int start){
+		if(tree[start]!=0){
+			System.out.printf("%d ", tree[start]);
+			prefix(tree, start*2+1);			
+			prefix(tree, start*2+1+1);
+		}
+		
+		return 0;					
+	}
+	
+	int postfix(int tree[], int start){
+		if(tree[start]!=0){
+			postfix(tree, start*2+1);			
+			postfix(tree, start*2+1+1);
+			System.out.printf("%d ", tree[start]);
+		}
+				
+		return 0;
+	}
 }
